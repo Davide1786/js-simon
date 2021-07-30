@@ -4,44 +4,60 @@
    // Dopo che sono stati inseriti i 5 numeri, il software dice quanti e quali dei numeri da indovinare sono stati individuati.
    // Bonus:
    // Introdurre la parte di grafica oltre a quella di logica
+   // =============================
 
-   alert("Memorizza i numeri che compaiono ad ogni click di ok");
-   
-   let numeriRandom = getRndInteger(1, 100);
-   
-   for (let i = 0; i < 5; i++) {
-      alert(getRndInteger(1, 100));
-   }
+   // variabile che contiene numeri generati dal pc
+   const numeriDaIndovinare = 5;
+   const minNumRandom = 1;
+   const maxNumRandom = 100;
 
-    // Genero timer
-    let secondi = 5;
-    setTimeout(timer, 1000);
-    
-    // funzioni
-    
-    // Genero numeri casuali
-    function getRndInteger(min, max) {
-       return Math.floor(Math.random() * (max - min + 1) ) + min;
-      }
+   let randomNumbers = [];
+   while (randomNumbers.length < numeriDaIndovinare)
+   {
+      let newRandomNumber = getRandomNumber(minNumRandom, maxNumRandom);
+      if (!randomNumbers.includes(newRandomNumber))
       
-   function timer(){
-      let inserisciNumeri = [];
-      for (let i = 0; i < 5; i++){
-         inserisciNumeri[i] = parseInt(prompt("Inserisci i numeri appena visti"));
-      }
-      for(let i = 0; i < inserisciNumeri.length; i++){
-         if(numeriRandom.includes == inserisciNumeri.length){
-            risultato.push()
-            console.log("Complimenti, hai indovinato");
-
-         } 
-      }
-
-      document.getElementById("countdown").innerHTML = secondi + " allo scadere del tempo";
-      console.log(secondi);
-      document.getElementById("countdown").innerHTML = "Tempo scaduto...inserisci i tuoi numeri";
-
+      randomNumbers.push(newRandomNumber);
    }
 
+   document.getElementById('numeriGenerati').innerHTML = randomNumbers;
+   // alert(randomNumbers);
+   
+   setTimeout(function() {
 
+      document.getElementById('numeriGenerati').innerHTML = "";
+
+      let userNumbers = [];
+      while (userNumbers.length < numeriDaIndovinare)
+      {
+         // richiedo 5 numeri all'utente
+         let newUserNumber = parseInt(prompt("Inserisci un numero"));
+
+         if (userNumbers.includes(newUserNumber) == false)
+         {
+            userNumbers.push(newUserNumber);
+         }
+
+         let indovinati = [];
+
+         for (let i = 0; i < userNumbers.length; i++)
+         {
+            let userNumber = userNumbers[i];
+            if (randomNumbers.includes(userNumber))
+            indovinati.push(userNumber)
+         }
+
+         alert("Hai indovinato " + indovinati.length + " numeri");
+         alert("I numeri indovinati " + indovinati);
+
+      }
+   }, 3000)
+
+
+   /* funzioni */
+
+   function getRandomNumber(min, max)
+   {
+      return Math.floor(Math.random() * (max-min+1) + min);
+   }
    
